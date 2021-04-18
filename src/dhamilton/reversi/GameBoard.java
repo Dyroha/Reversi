@@ -14,7 +14,7 @@ public class GameBoard extends JPanel {
 	
 	@Override
 	public Dimension getPreferredSize() {
-		Dimension dimension = super.getPreferredSize();
+		Dimension dimension;
 		Container box = getParent();
 		if (box != null) {
 			dimension = box.getSize();

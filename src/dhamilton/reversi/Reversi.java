@@ -7,7 +7,7 @@ public class Reversi {
 			new GameWindow();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			System.out.println("Something went wrong, application cannot be started");
+			System.err.println("Something went wrong, application cannot be started");
 			e.printStackTrace();
 		}
 	}

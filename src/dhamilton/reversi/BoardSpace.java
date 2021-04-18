@@ -10,7 +10,6 @@ import javax.swing.JButton;
 
 public class BoardSpace extends JButton {
 
-	private static final long serialVersionUID = 1L;
 	private Image currentImage;
 	private final int yPos, xPos;
 

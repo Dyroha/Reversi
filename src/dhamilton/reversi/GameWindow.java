@@ -25,6 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 
 public class GameWindow extends JFrame {
 
@@ -56,7 +57,7 @@ public class GameWindow extends JFrame {
 
 		this.pack();
 		this.setTitle("Reversi: 8x8");
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocation(100, 50);
 		this.setVisible(true);

@@ -13,7 +13,7 @@ public class ReversiIO {
 		}
 	}
 
-	public static GameSession loadSession(File gameFile) throws FileNotFoundException, IOException {
+	public static GameSession loadSession(File gameFile) throws IOException {
 		try (Scanner sc = new Scanner(gameFile).useDelimiter(";")) {
 			String blackName = sc.next();
 			int blackScore = sc.nextInt();
