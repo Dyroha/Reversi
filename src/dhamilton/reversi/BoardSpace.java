@@ -11,7 +11,8 @@ import javax.swing.JButton;
 public class BoardSpace extends JButton {
 
 	private Image currentImage;
-	private final int yPos, xPos;
+	private final int yPos;
+	private final int xPos;
 
 	public BoardSpace(int y, int x, BufferedImage blankSpace) {
 		currentImage = blankSpace;
