@@ -187,7 +187,7 @@ public class GameWindow extends JFrame {
 		playButton.setPreferredSize(new Dimension(100, 30));
 
 		// create sidePanel
-		JPanel sidePanel = new JPanel(new GridBagLayout());
+		sidePanel = new JPanel(new GridBagLayout());
 		sidePanel.setPreferredSize(new Dimension(250, 600));
 		sidePanel.setBackground(Color.LIGHT_GRAY);
 		GridBagConstraints c = new GridBagConstraints();

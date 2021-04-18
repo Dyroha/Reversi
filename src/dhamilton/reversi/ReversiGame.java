@@ -60,8 +60,8 @@ public class ReversiGame {
 		System.out.println();
 	}
 
-	public char getBoardPiece(int[] position) {
-		return board[position[0]][position[1]];
+	public char getBoardPiece(int y, int x) {
+		return board[y][x];
 	}
 
 	public boolean isGameOver() {
@@ -161,7 +161,7 @@ public class ReversiGame {
 
 		if (!(end[0] >= 0 && end[0] < size && end[1] >= 0 && end[1] < size))
 			return false;
-		char nextPiece = getBoardPiece(end);
+		char nextPiece = board[end[0]][end[1]];
 
 		// check if next piece is invalid
 		if (nextPiece == '-' || nextPiece == colour)

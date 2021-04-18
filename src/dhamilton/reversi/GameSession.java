@@ -9,8 +9,10 @@ import javax.swing.JPanel;
 public class GameSession {
 	private GameWindow gui;
 	private ReversiGame game;
-	private int blackScore, whiteScore;
-	private String blackName, whiteName;
+	private int blackScore;
+	private int whiteScore;
+	private String blackName;
+	private String whiteName;
 	private GameBoard gameBoard;
 	private BufferedImage blankSpace;
 	private BufferedImage blackPiece;
@@ -106,7 +108,7 @@ public class GameSession {
 		for (Component c : gameBoard.getComponents()) {
 			if(c instanceof BoardSpace) {
 				BoardSpace space = (BoardSpace) c;
-				char piece = game.getBoardPiece(new int[] { space.getYPos(), space.getXPos() });
+				char piece = game.getBoardPiece(space.getYPos(), space.getXPos());
 				if (piece == '-') continue;
 				if (piece == 'b')
 					space.setCurrentImage(blackPiece);
