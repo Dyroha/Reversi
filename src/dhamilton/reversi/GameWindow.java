@@ -56,7 +56,7 @@ public class GameWindow extends JFrame {
 		this.add(messageBar, BorderLayout.SOUTH);
 
 		this.pack();
-		this.setTitle("Reversi: 8x8");
+		this.setTitle();
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocation(100, 50);
@@ -99,7 +99,7 @@ public class GameWindow extends JFrame {
 				session.setGui(this);
 				size = session.getGameSize();
 				play(false);
-				this.setTitle("Reversi: " + size + "x" + size);
+				this.setTitle();
 			} catch (IOException ex) {
 				// TODO Auto-generated catch block
 				ex.printStackTrace();
@@ -147,24 +147,26 @@ public class GameWindow extends JFrame {
 		// names
 		blackName = new JTextField();
 		blackName.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				blackName.selectAll();
 			}
 		});
 		blackName.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		blackName.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-		blackName.setHorizontalAlignment(JTextField.CENTER);
+		blackName.setHorizontalAlignment(SwingConstants.CENTER);
 		blackName.setText("Player 1 name");
 
 		whiteName = new JTextField();
 		whiteName.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				whiteName.selectAll();
 			}
 		});
 		whiteName.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		whiteName.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-		whiteName.setHorizontalAlignment(JTextField.CENTER);
+		whiteName.setHorizontalAlignment(SwingConstants.CENTER);
 		whiteName.setText("Player 2 name");
 
 		// scores
@@ -322,7 +324,7 @@ public class GameWindow extends JFrame {
 		// check if valid size
 		if (isValidInput(inputSize)) {
 			size = Integer.parseInt(inputSize);
-			this.setTitle("Reversi: " + size + "x" + size);
+			this.setTitle();
 			if (session.getBoard() != null)
 				play(true);
 			// send error otherwise
@@ -352,7 +354,7 @@ public class GameWindow extends JFrame {
 				return;
 		}
 		size = 8;
-		this.setTitle("Reversi: " + size + "x" + size);
+		this.setTitle();
 		session = new GameSession(this);
 		this.remove(gameBag);
 		this.remove(sidePanel);
@@ -370,5 +372,9 @@ public class GameWindow extends JFrame {
 		setMessageBar("Press Next Game to start a new game");
 		playButton.setVisible(true);
 
+	}
+
+	public void setTitle() {
+		super.setTitle("Reversi: " + size + "x" + size);
 	}
 }
