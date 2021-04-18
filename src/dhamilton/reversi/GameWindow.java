@@ -77,8 +77,7 @@ public class GameWindow extends JFrame {
 				try {
 					ReversiIO.saveSession(fc.getSelectedFile(), session);
 				} catch (IOException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
+					JOptionPane.showMessageDialog(this, "An Error has occured, could not save file", "Save File Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -93,7 +92,9 @@ public class GameWindow extends JFrame {
 				if (i == JOptionPane.NO_OPTION)
 					return;
 			}
+			//choose file
 			fc.showOpenDialog(this);
+			//create session from file
 			try {
 				session = ReversiIO.loadSession(fc.getSelectedFile());
 				session.setGui(this);
@@ -101,8 +102,7 @@ public class GameWindow extends JFrame {
 				play(false);
 				this.setTitle();
 			} catch (IOException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "An Error has occured, could not load file", "Load File Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
@@ -117,8 +117,7 @@ public class GameWindow extends JFrame {
 			try {
 				newSession();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(this, "An Error has occured, could not create a new session", "New Session Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
@@ -183,7 +182,7 @@ public class GameWindow extends JFrame {
 
 		// Play button
 		playButton = new JButton("Play");
-		// TODO create play button listener
+		
 		playButton.addActionListener(e -> play(true));
 		playButton.setPreferredSize(new Dimension(100, 30));
 
