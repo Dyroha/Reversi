@@ -56,7 +56,7 @@ public class GameWindow extends JFrame {
 		this.add(messageBar, BorderLayout.SOUTH);
 
 		this.pack();
-		this.setTitle("Reversi: 8x8");
+		this.setTitle();
 		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocation(100, 50);
@@ -77,8 +77,7 @@ public class GameWindow extends JFrame {
 				try {
 					ReversiIO.saveSession(fc.getSelectedFile(), session);
 				} catch (IOException ex) {
-					// TODO Auto-generated catch block
-					ex.printStackTrace();
+					JOptionPane.showMessageDialog(this, "An Error has occured, could not save file", "Save File Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -93,16 +92,17 @@ public class GameWindow extends JFrame {
 				if (i == JOptionPane.NO_OPTION)
 					return;
 			}
+			//choose file
 			fc.showOpenDialog(this);
+			//create session from file
 			try {
 				session = ReversiIO.loadSession(fc.getSelectedFile());
 				session.setGui(this);
 				size = session.getGameSize();
 				play(false);
-				this.setTitle("Reversi: " + size + "x" + size);
+				this.setTitle();
 			} catch (IOException ex) {
-				// TODO Auto-generated catch block
-				ex.printStackTrace();
+				JOptionPane.showMessageDialog(this, "An Error has occured, could not load file", "Load File Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
@@ -117,8 +117,7 @@ public class GameWindow extends JFrame {
 			try {
 				newSession();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				JOptionPane.showMessageDialog(this, "An Error has occured, could not create a new session", "New Session Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
@@ -147,24 +146,26 @@ public class GameWindow extends JFrame {
 		// names
 		blackName = new JTextField();
 		blackName.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				blackName.selectAll();
 			}
 		});
 		blackName.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		blackName.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-		blackName.setHorizontalAlignment(JTextField.CENTER);
+		blackName.setHorizontalAlignment(SwingConstants.CENTER);
 		blackName.setText("Player 1 name");
 
 		whiteName = new JTextField();
 		whiteName.addMouseListener(new MouseAdapter() {
+			@Override
 			public void mouseClicked(MouseEvent e) {
 				whiteName.selectAll();
 			}
 		});
 		whiteName.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 15));
 		whiteName.setBorder(BorderFactory.createLineBorder(Color.WHITE));
-		whiteName.setHorizontalAlignment(JTextField.CENTER);
+		whiteName.setHorizontalAlignment(SwingConstants.CENTER);
 		whiteName.setText("Player 2 name");
 
 		// scores
@@ -181,7 +182,7 @@ public class GameWindow extends JFrame {
 
 		// Play button
 		playButton = new JButton("Play");
-		// TODO create play button listener
+		
 		playButton.addActionListener(e -> play(true));
 		playButton.setPreferredSize(new Dimension(100, 30));
 
@@ -322,7 +323,7 @@ public class GameWindow extends JFrame {
 		// check if valid size
 		if (isValidInput(inputSize)) {
 			size = Integer.parseInt(inputSize);
-			this.setTitle("Reversi: " + size + "x" + size);
+			this.setTitle();
 			if (session.getBoard() != null)
 				play(true);
 			// send error otherwise
@@ -352,7 +353,7 @@ public class GameWindow extends JFrame {
 				return;
 		}
 		size = 8;
-		this.setTitle("Reversi: " + size + "x" + size);
+		this.setTitle();
 		session = new GameSession(this);
 		this.remove(gameBag);
 		this.remove(sidePanel);
@@ -370,5 +371,9 @@ public class GameWindow extends JFrame {
 		setMessageBar("Press Next Game to start a new game");
 		playButton.setVisible(true);
 
+	}
+
+	public void setTitle() {
+		super.setTitle("Reversi: " + size + "x" + size);
 	}
 }

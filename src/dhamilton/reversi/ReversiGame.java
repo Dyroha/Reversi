@@ -28,7 +28,6 @@ public class ReversiGame {
 		board[middle - 1][middle] = 'b';
 		board[middle][middle - 1] = 'b';
 		board[middle][middle] = 'w';
-		// printBoard();
 	}
 
 	public ReversiGame(int turnNumber, int size, String boardStr) throws NumberFormatException {
@@ -92,11 +91,9 @@ public class ReversiGame {
 		int white = 0;
 		for (int i = 0; i < size; i++) {
 			for (int j = 0; j < size; j++) {
-				if (board[j][i] == '-')
-					continue;
-				else if (board[j][i] == 'b')
+				if (board[j][i] == 'b')
 					black++;
-				else
+				else if (board[j][i] == 'w')
 					white++;
 			}
 		}
@@ -109,14 +106,11 @@ public class ReversiGame {
 			for (int j = 0; j < size; j++) {
 				validPlaceCheck(j, i, player);
 				if (!locations.isEmpty()) {
-					// TODO there is a better way to do this
-					// without having to clear the list
 					locations.clear();
 					return true;
 				}
 			}
 		}
-		System.out.println(currentPlayerTurn + " has no valid moves");
 		return false;
 	}
 
@@ -127,14 +121,12 @@ public class ReversiGame {
 
 	public boolean placePiece(int y, int x) {
 		try {
-			// TODO fix this
 			validPlaceCheck(y, x, currentPlayerTurn);
 			if (!locations.isEmpty()) {
 				flipFromList();
 				board[y][x] = currentPlayerTurn;
 				nextTurn();
 				countPieces();
-				// printBoard();
 				return true;
 			}
 		} catch (ArrayIndexOutOfBoundsException e) {
@@ -196,7 +188,6 @@ public class ReversiGame {
 			if (board[start[0]][start[1]] == colour)
 				return true;
 			locations.add(new int[] { start[0], start[1] });
-			// TODO visual flip and wait?
 			start = movePosition(start, direction);
 		}
 		return true;

@@ -65,7 +65,6 @@ public class GameSession {
 			for (int x = 0; x < size; x++) {
 				int j = y;
 				int i = x;
-				//System.out.println(j + ":" + i);
 				BoardSpace space = new BoardSpace(j, i, blankSpace);
 				space.addActionListener(e -> {
 					if (game.placePiece(j, i)) {
@@ -107,7 +106,6 @@ public class GameSession {
 		for (Component c : gameBoard.getComponents()) {
 			if(c instanceof BoardSpace) {
 				BoardSpace space = (BoardSpace) c;
-				//System.out.println(space.getYPos() + ":" + space.getXPos());
 				char piece = game.getBoardPiece(new int[] { space.getYPos(), space.getXPos() });
 				if (piece == '-') continue;
 				if (piece == 'b')
