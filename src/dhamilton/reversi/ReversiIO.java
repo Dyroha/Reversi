@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class ReversiIO {
+
+	private ReversiIO() {}
+
 	public static void saveSession(File gameFile, GameSession session) throws IOException {
 		try (FileWriter fw = new FileWriter(gameFile)) {
 			fw.write(session.getFileFormattedString());
@@ -22,9 +25,8 @@ public class ReversiIO {
 			int turnNumber = sc.nextInt();
 			int size = sc.nextInt();
 			String boardString = sc.next();
-			GameSession gameSession = new GameSession(blackName, whiteName, blackScore, whiteScore,
+			return new GameSession(blackName, whiteName, blackScore, whiteScore,
 					new ReversiGame(turnNumber, size, boardString));
-			return gameSession;
 		}
 	}
 }

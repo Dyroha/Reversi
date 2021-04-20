@@ -1,5 +1,11 @@
 package dhamilton.reversi;
 
+/**
+ * Reversi application main class
+ * 
+ * @version 10/04/2021
+ * @author Dylan Hamilton
+ */
 public class Reversi {
 	public static void main(String[] args) {
 		try {

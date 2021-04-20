@@ -6,12 +6,26 @@ import java.awt.GridLayout;
 
 import javax.swing.JPanel;
 
+/**
+ * A game board with a GridLayout that preferes to be square
+ * 
+ * @version 20/04/2021
+ * @author Dylan Hamilton
+ */
 public class GameBoard extends JPanel {
 	
+	/**
+	 * Creates a GameBoard with a square GridLayout
+	 * @param size the number of collumns and rows for the grid
+	 */
 	public GameBoard(int size) {
 		super(new GridLayout(size, size));
 	}
 	
+	/**
+	 * returns a square Dimension with the smallest of the height and width as both height and width values
+	 * @return a square Dimension object
+	 */
 	@Override
 	public Dimension getPreferredSize() {
 		Dimension dimension;
