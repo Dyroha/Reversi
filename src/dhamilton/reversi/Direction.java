@@ -1,4 +1,4 @@
-package com.dyroha.reversi;
+package dhamilton.reversi;
 
 
 public enum Direction {
