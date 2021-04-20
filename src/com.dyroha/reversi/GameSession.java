@@ -1,4 +1,5 @@
-package dhamilton.reversi;
+package com.dyroha.reversi;
+
 import java.awt.Component;
 import java.awt.image.BufferedImage;
 import java.io.IOException;

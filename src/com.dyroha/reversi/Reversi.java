@@ -1,4 +1,4 @@
-package dhamilton.reversi;
+package com.dyroha.reversi;
 
 public class Reversi {
 	public static void main(String[] args) {
