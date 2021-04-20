@@ -27,6 +27,12 @@ import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+/**
+ * Game window for the Reversi application
+ * 
+ * @version 20/04/2021
+ * @author Dylan Hamilton
+ */
 public class GameWindow extends JFrame {
 
 	private JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
@@ -43,6 +49,9 @@ public class GameWindow extends JFrame {
 	private JPanel sidePanel;
 	private int size = 8;
 
+	/**
+	 * Creates a GameWindow and components within then packs and show the frame
+	 */
 	public GameWindow() throws IOException {
 		session = new GameSession(this);
 
@@ -271,34 +280,7 @@ public class GameWindow extends JFrame {
 		whiteName.setBorder(BorderFactory.createEmptyBorder());
 	}
 
-	public void setWhiteScore(int score) {
-		whiteScore.setText(Integer.toString(score));
-	}
-
-	public void setBlackScore(int score) {
-		blackScore.setText(Integer.toString(score));
-	}
-
-	public void setBlackPieces(int noPieces) {
-		blackPieces.setText(Integer.toString(noPieces));
-	}
-
-	public void setWhitePieces(int noPieces) {
-		whitePieces.setText(Integer.toString(noPieces));
-	}
-
-	public void setMessageBar(String message) {
-		messageBar.setText(message);
-	}
-
-	public void setBlackName(String name) {
-		this.blackName.setText(name);
-	}
-
-	public void setWhiteName(String name) {
-		this.whiteName.setText(name);
-	}
-
+	
 	private void changeSizePrompt() {
 		if (session.getBoard() != null) {
 			// check if they are sure
@@ -362,18 +344,90 @@ public class GameWindow extends JFrame {
 		SwingUtilities.updateComponentTreeUI(this);
 	}
 
+	private void setTitle() {
+		super.setTitle("Reversi: " + size + "x" + size);
+	}
+
+	/**
+	 * sets the white side's score
+	 * 
+	 * @param score the score for which to be set
+	 */
+	public void setWhiteScore(int score) {
+		whiteScore.setText(Integer.toString(score));
+	}
+
+	/**
+	 * sets the black side's score
+	 * 
+	 * @param score the score for which to be set
+	 */
+	public void setBlackScore(int score) {
+		blackScore.setText(Integer.toString(score));
+	}
+
+	/**
+	 * sets the black side's current number of pieces on the board
+	 * 
+	 * @param noPieces the number of pieces for which to be set
+	 */
+	public void setBlackPieces(int noPieces) {
+		blackPieces.setText(Integer.toString(noPieces));
+	}
+
+	/**
+	 * sets the white side's current number of pieces on the board
+	 * 
+	 * @param noPieces the number of pieces for which to be set
+	 */
+	public void setWhitePieces(int noPieces) {
+		whitePieces.setText(Integer.toString(noPieces));
+	}
+
+	/**
+	 * sets the message for the message bar
+	 * 
+	 * @param message the message for which to be set
+	 */
+	public void setMessageBar(String message) {
+		messageBar.setText(message);
+	}
+
+	/**
+	 * sets the black side's player name
+	 * 
+	 * @param name the name of the black side's player
+	 */
+	public void setBlackName(String name) {
+		this.blackName.setText(name);
+	}
+
+	/**
+	 * sets the white side's player name
+	 * 
+	 * @param name the name of the white side's player
+	 */
+	public void setWhiteName(String name) {
+		this.whiteName.setText(name);
+	}
+
+	/**
+	 * creates dialog box saying a player cannot make a move
+	 * 
+	 * @param player the player's name
+	 */
 	public void alertNoTurn(String player) {
 		JOptionPane.showMessageDialog(this, player + " has no valid moves");
 	}
 
+	/**
+	 * creates dialog box saying the endGameMessage, then allows the user to start a new game
+	 * @param endGameMessage the message to be displayed
+	 */
 	public void endOfGameEvent(String endGameMessage) {
 		JOptionPane.showMessageDialog(this, endGameMessage);
 		setMessageBar("Press Next Game to start a new game");
 		playButton.setVisible(true);
 
-	}
-
-	public void setTitle() {
-		super.setTitle("Reversi: " + size + "x" + size);
 	}
 }
