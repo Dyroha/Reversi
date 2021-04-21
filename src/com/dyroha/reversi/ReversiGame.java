@@ -1,4 +1,4 @@
-package dhamilton.reversi;
+package com.dyroha.reversi;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -6,13 +6,13 @@ import java.util.Arrays;
 /**
  * A basic game of reversi
  * 
- * @version 20/04/2021
+ * @version 21/04/2021
  * @author Dylan Hamilton
  */
 public class ReversiGame {
 	private char[][] board;
 	private int turnNumber;
-	private final char[] PIECE_COLOURS = { 'b', 'w' };
+	private final char[] pieceColours = { 'b', 'w' };
 	private ArrayList<int[]> locations;
 	private char currentPlayerTurn;
 	private int size;
@@ -52,7 +52,7 @@ public class ReversiGame {
 		this.size = size;
 		this.locations = new ArrayList<>();
 		this.turnNumber = turnNumber;
-		this.currentPlayerTurn = PIECE_COLOURS[turnNumber % 2];
+		this.currentPlayerTurn = pieceColours[turnNumber % 2];
 		this.board = new char[size][size];
 
 		String[] pieces = boardStr.split(",");
@@ -191,7 +191,7 @@ public class ReversiGame {
 	 */
 	public void nextTurn() {
 		turnNumber++;
-		currentPlayerTurn = PIECE_COLOURS[turnNumber % 2];
+		currentPlayerTurn = pieceColours[turnNumber % 2];
 	}
 
 	private void validPlaceCheck(int y, int x, char colour) {
@@ -205,7 +205,7 @@ public class ReversiGame {
 	private boolean checkDirection(int y, int x, Direction direction, char colour) {
 		int[] start = { y, x };
 		int[] end = { y, x };
-		end = movePosition(end, direction);
+		movePosition(end, direction);
 
 		if (!(end[0] >= 0 && end[0] < size && end[1] >= 0 && end[1] < size))
 			return false;
@@ -217,7 +217,7 @@ public class ReversiGame {
 
 		// count till reaches own colour or triggers exception
 		while (true) {
-			end = movePosition(end, direction);
+			movePosition(end, direction);
 			// is within bounds
 			if (!(end[0] >= 0 && end[0] < size && end[1] >= 0 && end[1] < size))
 				return false;
@@ -231,12 +231,12 @@ public class ReversiGame {
 		}
 
 		// do flips
-		start = movePosition(start, direction);
+		movePosition(start, direction);
 		while (start != end) {
 			if (board[start[0]][start[1]] == colour)
 				return true;
 			locations.add(new int[] { start[0], start[1] });
-			start = movePosition(start, direction);
+			movePosition(start, direction);
 		}
 		return true;
 	}

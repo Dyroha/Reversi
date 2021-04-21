@@ -1,4 +1,4 @@
-package dhamilton.reversi;
+package com.dyroha.reversi;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -30,12 +30,13 @@ import javax.swing.WindowConstants;
 /**
  * Game window for the Reversi application
  * 
- * @version 20/04/2021
+ * @version 21/04/2021
  * @author Dylan Hamilton
  */
-public class GameWindow extends JFrame {
+public class Reversi {
 
 	private JFileChooser fc = new JFileChooser(System.getProperty("user.dir"));
+	private JFrame frame;
 	private GameSession session;
 	private JLabel messageBar;
 	private JTextField blackName;
@@ -49,27 +50,37 @@ public class GameWindow extends JFrame {
 	private JPanel sidePanel;
 	private int size = 8;
 
+	public static void main(String[] args) {
+		try {
+			new Reversi();
+		} catch (Exception e) {
+			System.err.println("Something went wrong, application cannot be started");
+			e.printStackTrace();
+		}
+	}
+
 	/**
 	 * Creates a GameWindow and components within then packs and show the frame
 	 */
-	public GameWindow() throws IOException {
+	public Reversi() throws IOException {
+		frame = new JFrame();
 		session = new GameSession(this);
 
-		this.setLayout(new BorderLayout());
+		frame.setLayout(new BorderLayout());
 
-		this.setJMenuBar(createMenuBar());
+		frame.setJMenuBar(createMenuBar());
 		sidePanel = createSidePanel();
-		this.add(sidePanel, BorderLayout.EAST);
+		frame.add(sidePanel, BorderLayout.EAST);
 
 		messageBar = new JLabel("Press Play to start");
-		this.add(messageBar, BorderLayout.SOUTH);
+		frame.add(messageBar, BorderLayout.SOUTH);
 
-		this.pack();
-		this.setTitle();
-		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		this.setSize(800, 600);
-		this.setLocation(100, 50);
-		this.setVisible(true);
+		frame.pack();
+		setFrameTitle();
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setSize(800, 600);
+		frame.setLocation(100, 50);
+		frame.setVisible(true);
 	}
 
 	private JMenuBar createMenuBar() {
@@ -81,12 +92,12 @@ public class GameWindow extends JFrame {
 		// save session
 		JMenuItem saveFile = new JMenuItem("Save Session");
 		saveFile.addActionListener(e -> {
-			int i = fc.showSaveDialog(this);
+			int i = fc.showSaveDialog(frame);
 			if (i == JFileChooser.APPROVE_OPTION) {
 				try {
 					ReversiIO.saveSession(fc.getSelectedFile(), session);
 				} catch (IOException ex) {
-					JOptionPane.showMessageDialog(this, "An Error has occured, could not save file", "Save File Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(frame, "An Error has occured, could not save file", "Save File Error", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -95,23 +106,23 @@ public class GameWindow extends JFrame {
 		loadFile.addActionListener(e -> {
 			if (session.getBoard() != null) {
 				// ask for confirmation
-				int i = JOptionPane.showConfirmDialog(this,
+				int i = JOptionPane.showConfirmDialog(frame,
 						"Are you sure you want to load a session, " + "this will delete the current session",
 						"Load Session Alert", JOptionPane.YES_NO_OPTION);
 				if (i == JOptionPane.NO_OPTION)
 					return;
 			}
 			//choose file
-			fc.showOpenDialog(this);
+			fc.showOpenDialog(frame);
 			//create session from file
 			try {
 				session = ReversiIO.loadSession(fc.getSelectedFile());
 				session.setGui(this);
 				size = session.getGameSize();
 				play(false);
-				this.setTitle();
+				this.setFrameTitle();
 			} catch (IOException ex) {
-				JOptionPane.showMessageDialog(this, "An Error has occured, could not load file", "Load File Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "An Error has occured, could not load file", "Load File Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
@@ -126,7 +137,7 @@ public class GameWindow extends JFrame {
 			try {
 				newSession();
 			} catch (IOException e1) {
-				JOptionPane.showMessageDialog(this, "An Error has occured, could not create a new session", "New Session Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(frame, "An Error has occured, could not create a new session", "New Session Error", JOptionPane.ERROR_MESSAGE);
 			}
 		});
 
@@ -253,7 +264,7 @@ public class GameWindow extends JFrame {
 	}
 
 	private void play(boolean newGame) {
-		if (newGame == true)
+		if (newGame)
 			session.startGame(blackName.getText(), whiteName.getText(), size);
 		session.setUpGame();
 		disableNameInputs();
@@ -261,14 +272,14 @@ public class GameWindow extends JFrame {
 		playButton.setText("Next Game");
 
 		if (gameBag != null)
-			this.remove(gameBag);
+			frame.remove(gameBag);
 
 		gameBag = new JPanel();
 		gameBag.setLayout(new GridBagLayout());
 		gameBag.add(session.getBoard());
 
-		this.add(gameBag, BorderLayout.CENTER);
-		SwingUtilities.updateComponentTreeUI(this);
+		frame.add(gameBag, BorderLayout.CENTER);
+		SwingUtilities.updateComponentTreeUI(frame);
 	}
 
 	private void disableNameInputs() {
@@ -284,7 +295,7 @@ public class GameWindow extends JFrame {
 	private void changeSizePrompt() {
 		if (session.getBoard() != null) {
 			// check if they are sure
-			int input = JOptionPane.showConfirmDialog(this,
+			int input = JOptionPane.showConfirmDialog(frame,
 					"Changing the game size will reset the current game, are you sure you want to do this?",
 					"Change size alert", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			// no option
@@ -305,12 +316,12 @@ public class GameWindow extends JFrame {
 		// check if valid size
 		if (isValidInput(inputSize)) {
 			size = Integer.parseInt(inputSize);
-			this.setTitle();
+			this.setFrameTitle();
 			if (session.getBoard() != null)
 				play(true);
 			// send error otherwise
 		} else {
-			JOptionPane.showMessageDialog(this,
+			JOptionPane.showMessageDialog(frame,
 					"Invalid game size, input must be an even positive intager greater than 2", "Error",
 					JOptionPane.ERROR_MESSAGE);
 		}
@@ -328,24 +339,25 @@ public class GameWindow extends JFrame {
 		
 		if (session.getBoard() != null) {
 			// ask for confirmation
-			int i = JOptionPane.showConfirmDialog(this,
+			int i = JOptionPane.showConfirmDialog(frame,
 					"Are you sure you want to start a new session, " + "this will delete the current session",
 					"New Session Alert", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 			if (i == JOptionPane.NO_OPTION)
 				return;
 		}
 		size = 8;
-		this.setTitle();
+		setFrameTitle();
 		session = new GameSession(this);
-		this.remove(gameBag);
-		this.remove(sidePanel);
+		frame.remove(gameBag);
+		frame.remove(sidePanel);
 		sidePanel = createSidePanel();
-		this.add(sidePanel, BorderLayout.EAST);
-		SwingUtilities.updateComponentTreeUI(this);
+		frame.add(sidePanel, BorderLayout.EAST);
+		messageBar.setText("Press Play to start");
+		SwingUtilities.updateComponentTreeUI(frame);
 	}
 
-	private void setTitle() {
-		super.setTitle("Reversi: " + size + "x" + size);
+	private void setFrameTitle() {
+		frame.setTitle("Reversi: " + size + "x" + size);
 	}
 
 	/**
@@ -417,7 +429,7 @@ public class GameWindow extends JFrame {
 	 * @param player the player's name
 	 */
 	public void alertNoTurn(String player) {
-		JOptionPane.showMessageDialog(this, player + " has no valid moves");
+		JOptionPane.showMessageDialog(frame, player + " has no valid moves");
 	}
 
 	/**
@@ -425,7 +437,7 @@ public class GameWindow extends JFrame {
 	 * @param endGameMessage the message to be displayed
 	 */
 	public void endOfGameEvent(String endGameMessage) {
-		JOptionPane.showMessageDialog(this, endGameMessage);
+		JOptionPane.showMessageDialog(frame, endGameMessage);
 		setMessageBar("Press Next Game to start a new game");
 		playButton.setVisible(true);
 

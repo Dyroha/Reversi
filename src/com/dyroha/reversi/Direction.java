@@ -1,4 +1,4 @@
-package dhamilton.reversi;
+package com.dyroha.reversi;
 
 /**
  * Directions for a othoganal movement on a square drid
