@@ -19,7 +19,7 @@ import javax.swing.border.BevelBorder;
 /**
  * A square board space for a game board
  * 
- * @version 20/04/2021
+ * @version 21/04/2021
  * @author Dylan Hamilton
  */
 public class BoardSpace extends JComponent implements MouseListener {
@@ -65,7 +65,7 @@ public class BoardSpace extends JComponent implements MouseListener {
 	}
 
 	public void notifyListeners(MouseEvent e) {
-		ActionEvent evt = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, new String(), e.getWhen(), e.getModifiers());
+		ActionEvent evt = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "", e.getWhen(), e.getModifiersEx());
         synchronized(listeners)
         {
             for (int i = 0; i < listeners.size(); i++)

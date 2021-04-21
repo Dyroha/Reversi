@@ -10,11 +10,11 @@ import javax.swing.JPanel;
 /**
  * A game session for Reversi
  * 
- * @version 20/04/2021
+ * @version 21/04/2021
  * @author Dylan Hamilton
  */
 public class GameSession {
-	private GameWindow gui;
+	private Reversi gui;
 	private ReversiGame game;
 	private int blackScore;
 	private int whiteScore;
@@ -30,7 +30,7 @@ public class GameSession {
 	 * @param gameWindow the gui it is connected to
 	 * @throws IOException thrown if board space images cannot be found
 	 */
-	public GameSession(GameWindow gameWindow) throws IOException {
+	public GameSession(Reversi gameWindow) throws IOException {
 		gui = gameWindow;
 		blackScore = 0;
 		whiteScore = 0;
@@ -159,7 +159,7 @@ public class GameSession {
 	 * sets the gui for the session
 	 * @param gui the GameWindow gui for the session
 	 */
-	public void setGui(GameWindow gui) {
+	public void setGui(Reversi gui) {
 		this.gui = gui;
 		gui.setBlackScore(blackScore);
 		gui.setWhiteScore(whiteScore);

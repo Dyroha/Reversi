@@ -6,13 +6,13 @@ import java.util.Arrays;
 /**
  * A basic game of reversi
  * 
- * @version 20/04/2021
+ * @version 21/04/2021
  * @author Dylan Hamilton
  */
 public class ReversiGame {
 	private char[][] board;
 	private int turnNumber;
-	private final char[] PIECE_COLOURS = { 'b', 'w' };
+	private final char[] pieceColours = { 'b', 'w' };
 	private ArrayList<int[]> locations;
 	private char currentPlayerTurn;
 	private int size;
@@ -52,7 +52,7 @@ public class ReversiGame {
 		this.size = size;
 		this.locations = new ArrayList<>();
 		this.turnNumber = turnNumber;
-		this.currentPlayerTurn = PIECE_COLOURS[turnNumber % 2];
+		this.currentPlayerTurn = pieceColours[turnNumber % 2];
 		this.board = new char[size][size];
 
 		String[] pieces = boardStr.split(",");
@@ -191,7 +191,7 @@ public class ReversiGame {
 	 */
 	public void nextTurn() {
 		turnNumber++;
-		currentPlayerTurn = PIECE_COLOURS[turnNumber % 2];
+		currentPlayerTurn = pieceColours[turnNumber % 2];
 	}
 
 	private void validPlaceCheck(int y, int x, char colour) {
