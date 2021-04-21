@@ -205,7 +205,7 @@ public class ReversiGame {
 	private boolean checkDirection(int y, int x, Direction direction, char colour) {
 		int[] start = { y, x };
 		int[] end = { y, x };
-		end = movePosition(end, direction);
+		movePosition(end, direction);
 
 		if (!(end[0] >= 0 && end[0] < size && end[1] >= 0 && end[1] < size))
 			return false;
@@ -217,7 +217,7 @@ public class ReversiGame {
 
 		// count till reaches own colour or triggers exception
 		while (true) {
-			end = movePosition(end, direction);
+			movePosition(end, direction);
 			// is within bounds
 			if (!(end[0] >= 0 && end[0] < size && end[1] >= 0 && end[1] < size))
 				return false;
@@ -231,12 +231,12 @@ public class ReversiGame {
 		}
 
 		// do flips
-		start = movePosition(start, direction);
+		movePosition(start, direction);
 		while (start != end) {
 			if (board[start[0]][start[1]] == colour)
 				return true;
 			locations.add(new int[] { start[0], start[1] });
-			start = movePosition(start, direction);
+			movePosition(start, direction);
 		}
 		return true;
 	}
