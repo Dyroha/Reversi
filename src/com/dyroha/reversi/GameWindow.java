@@ -1,4 +1,4 @@
-package dhamilton.reversi;
+package com.dyroha.reversi;
 
 import java.awt.BorderLayout;
 import java.awt.Color;

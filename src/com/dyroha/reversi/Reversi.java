@@ -1,4 +1,4 @@
-package dhamilton.reversi;
+package com.dyroha.reversi;
 
 /**
  * Reversi application main class
